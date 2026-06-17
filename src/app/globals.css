@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --midnight: #0B0B1A;
+  --cosmos: #13132B;
+  --nebula: #1E1E3F;
+  --violet-deep: #2D1B69;
+  --violet-soft: #7C3AED;
+  --violet-glow: #A78BFA;
+  --gold: #D97706;
+  --gold-light: #FCD34D;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--midnight);
+  color: #E2D9F3;
+  font-family: 'Raleway', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Stars background effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 10% 70%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 75% 55%, rgba(167,139,250,0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 25% 15%, rgba(167,139,250,0.25) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--midnight); }
+::-webkit-scrollbar-thumb { background: var(--violet-deep); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--violet-soft); }
+
+/* Typography */
+.font-serif { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Components */
+@layer components {
+  .btn-primary {
+    @apply bg-violet-soft hover:bg-violet-700 text-white font-semibold py-3 px-6 rounded-xl 
+           transition-all duration-300 shadow-mystic hover:shadow-lg hover:scale-105 
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-gold {
+    @apply text-midnight font-bold py-3 px-6 rounded-xl transition-all duration-300 
+           hover:scale-105 active:scale-95 shadow-gold;
+    background: linear-gradient(135deg, #D97706, #FCD34D, #D97706);
+    background-size: 200% auto;
+  }
+
+  .btn-ghost {
+    @apply border border-violet-glow/30 text-violet-light hover:bg-violet-deep/30 
+           font-medium py-3 px-6 rounded-xl transition-all duration-300;
+  }
+
+  .card-mystic {
+    @apply bg-cosmos/80 backdrop-blur-sm border border-violet-glow/20 rounded-2xl 
+           shadow-card overflow-hidden;
+  }
+
+  .card-glow {
+    @apply card-mystic hover:border-violet-glow/50 hover:shadow-mystic transition-all duration-300;
+  }
+
+  .input-mystic {
+    @apply w-full bg-nebula/50 border border-violet-glow/20 rounded-xl px-4 py-3 
+           text-star placeholder-star/40 focus:outline-none focus:border-violet-glow 
+           focus:ring-1 focus:ring-violet-glow/50 transition-colors duration-200;
+  }
+
+  .label-mystic {
+    @apply block text-sm font-medium text-violet-light mb-2;
+  }
+
+  .badge-estado {
+    @apply px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl md:text-4xl text-gold-light font-bold;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #FCD34D, #A78BFA, #FCD34D);
+  }
+
+  .divider-mystic {
+    @apply border-violet-glow/10;
+  }
+
+  /* Sidebar */
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-star/70 hover:text-star 
+           hover:bg-violet-deep/40 transition-all duration-200 font-medium;
+  }
+
+  .sidebar-link.active {
+    @apply bg-violet-deep text-violet-light border border-violet-glow/30 shadow-mystic;
+  }
+
+  /* Status badges */
+  .status-pendiente { @apply badge-estado bg-amber-500/20 text-amber-300 border border-amber-500/30; }
+  .status-confirmada { @apply badge-estado bg-violet-500/20 text-violet-300 border border-violet-500/30; }
+  .status-respondida { @apply badge-estado bg-emerald-500/20 text-emerald-300 border border-emerald-500/30; }
+  .status-cancelada { @apply badge-estado bg-red-500/20 text-red-300 border border-red-500/30; }
+  .status-cerrada { @apply badge-estado bg-gray-500/20 text-gray-300 border border-gray-500/30; }
+  .status-en_proceso { @apply badge-estado bg-blue-500/20 text-blue-300 border border-blue-500/30; }
+
+  /* Chat bubbles */
+  .bubble-sent {
+    @apply bg-violet-deep border border-violet-glow/30 rounded-2xl rounded-br-sm px-4 py-3 max-w-xs md:max-w-md;
+  }
+
+  .bubble-received {
+    @apply bg-nebula border border-white/5 rounded-2xl rounded-bl-sm px-4 py-3 max-w-xs md:max-w-md;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-shimmer { animation: shimmer 3s linear infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.5s ease forwards; }
+.animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+.animate-pulse-ring { animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+
+/* Gold shimmer */
+.gold-shimmer {
+  background: linear-gradient(90deg, #D97706, #FCD34D, #D97706);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Mystic card hover */
+.tarot-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.tarot-card:hover {
+  transform: translateY(-8px) rotate(1deg);
+  box-shadow: 0 20px 40px rgba(124,58,237,0.4);
+}
+
+/* Notification dot */
+.notification-dot {
+  @apply absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-xs text-white font-bold;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(30, 30, 63, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* WhatsApp button */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37,211,102,0.6);
+}
+.whatsapp-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25D366;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Calendar customization */
+.react-calendar {
+  background: transparent !important;
+  border: none !important;
+  font-family: 'Raleway', sans-serif !important;
+  color: #E2D9F3 !important;
+  width: 100% !important;
+}
+.react-calendar__tile {
+  background: rgba(30,30,63,0.5) !important;
+  color: #E2D9F3 !important;
+  border-radius: 8px !important;
+  margin: 2px !important;
+  border: 1px solid transparent !important;
+  transition: all 0.2s !important;
+}
+.react-calendar__tile:hover {
+  background: rgba(124,58,237,0.4) !important;
+  border-color: rgba(167,139,250,0.4) !important;
+}
+.react-calendar__tile--active {
+  background: #7C3AED !important;
+  border-color: #A78BFA !important;
+}
+.react-calendar__tile--now {
+  border-color: #D97706 !important;
+}
+.react-calendar__navigation button {
+  background: transparent !important;
+  color: #A78BFA !important;
+  font-size: 1rem !important;
+}
+.react-calendar__month-view__weekdays {
+  color: #C4B5FD !important;
+}
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
