@@ -15,14 +15,14 @@ const servicios = [
     icon: <MessageCircle className="w-8 h-8" />,
     titulo: 'Consulta por Mensaje',
     desc: 'Enviá tu pregunta y recibí una lectura detallada y personalizada por escrito.',
-    precio: 'Desde $2.500',
+    precio: 'Desde $5000',
     color: 'from-violet-deep to-violet-soft',
   },
   {
     icon: <Video className="w-8 h-8" />,
     titulo: 'Videollamada',
     desc: 'Sesión en vivo con lectura interactiva y preguntas en tiempo real.',
-    precio: 'Desde $4.000',
+    precio: 'Desde $10000',
     color: 'from-gold-dark to-gold',
   },
   {
