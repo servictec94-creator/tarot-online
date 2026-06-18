@@ -90,14 +90,16 @@ export default function AdminAgendaPage() {
     reservas.filter((r) => isSameDay(parseISO(r.fecha), dia))
 
   const confirmarReserva = async (id: string) => {
-    await (supabase as any)
+    // Corregido agregando "as any" al objeto del update
+    await supabase
       .from('reservas')
-      .update({ estado: 'confirmada' })
+      .update({ estado: 'confirmada' } as any)
       .eq('id', id)
 
     const reserva = reservas.find((r) => r.id === id)
 
     if (reserva) {
+      // Corregido agregando "as any" al objeto del insert
       await supabase.from('notificaciones').insert({
         usuario_id: reserva.usuario_id,
         tipo: 'reserva',
@@ -108,7 +110,7 @@ export default function AdminAgendaPage() {
           { locale: es }
         )} a las ${reserva.hora_inicio} fue confirmado.`,
         url: '/reservas',
-      })
+      } as any)
     }
 
     toast.success('Reserva confirmada')
@@ -117,14 +119,16 @@ export default function AdminAgendaPage() {
   }
 
   const cancelarReserva = async (id: string) => {
-    await (supabase as any)
+    // Corregido agregando "as any" al objeto del update
+    await supabase
       .from('reservas')
-      .update({ estado: 'cancelada' })
+      .update({ estado: 'cancelada' } as any)
       .eq('id', id)
 
     const reserva = reservas.find((r) => r.id === id)
 
     if (reserva) {
+      // Corregido agregando "as any" al objeto del insert
       await supabase.from('notificaciones').insert({
         usuario_id: reserva.usuario_id,
         tipo: 'reserva',
@@ -135,7 +139,7 @@ export default function AdminAgendaPage() {
           { locale: es }
         )} fue cancelada.`,
         url: '/reservas',
-      })
+      } as any)
     }
 
     toast.success('Reserva cancelada')
@@ -154,6 +158,7 @@ export default function AdminAgendaPage() {
       const reserva = reservas.find((r) => r.id === reservaId)
 
       if (reserva) {
+        // Corregido agregando "as any" al objeto del insert
         await supabase.from('notificaciones').insert({
           usuario_id: reserva.usuario_id,
           tipo: 'videollamada',
@@ -167,7 +172,7 @@ export default function AdminAgendaPage() {
           metadata: {
             jitsi_url: `https://meet.jit.si/${data}`,
           },
-        })
+        } as any)
       }
 
       toast.success('Link generado')
